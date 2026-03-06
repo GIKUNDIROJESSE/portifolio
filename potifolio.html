@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIKUNDIRO JESSE — Portfolio</title>
+  <style>
+    /* ===== CSS VARIABLES & RESET ===== */
+    :root {
+      --navy: #1a237e;
+      --navy-dark: #0d1442;
+      --gold: #d4a843;
+      --bg: #faf9f6;
+      --card-bg: #ffffff;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    .dark-mode {
+      --bg: #030712;
+      --card-bg: #111827;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #374151;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before, header::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--gold), #f0d78c, var(--gold));
+    }
+    header::before { top: 0; }
+    header::after { bottom: 0; }
+    .header-academy {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    header h1 {
+      color: white;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    header h1 span { color: var(--gold); }
+    header p {
+      color: #d1d5db;
+      font-size: 18px;
+      margin-top: 12px;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,168,67,0.2);
+      transition: background 0.4s;
+    }
+    .dark-mode nav {
+      background: rgba(17,24,39,0.92);
+      border-bottom-color: #374151;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+    }
+    nav ul li { display: flex; gap: 24px; align-items: center; }
+    nav ul li a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy);
+      transition: color 0.2s;
+    }
+    .dark-mode nav ul li a { color: #d1d5db; }
+    nav ul li a:hover { color: var(--gold); }
+    #darkToggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--navy);
+      transition: color 0.2s;
+    }
+    .dark-mode #darkToggle { color: #d1d5db; }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    section { margin-bottom: 64px; }
+    hr { border: none; border-top: 2px solid rgba(212,168,67,0.3); margin: 48px 0; }
+    .dark-mode hr { border-top-color: #374151; }
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+    .dark-mode h2 { color: var(--gold); }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* ===== ABOUT ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* ===== LISTS ===== */
+    ul.fancy, ol.fancy { padding-left: 0; list-style: none; }
+    ul.fancy li, ol.fancy li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    ul.fancy li:hover, ol.fancy li:hover { background: rgba(26,35,126,0.05); }
+    .dark-mode ul.fancy li:hover, .dark-mode ol.fancy li:hover { background: rgba(255,255,255,0.05); }
+    .bullet { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+    .num {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(26,35,126,0.1); color: var(--navy);
+      font-size: 12px; font-weight: 700; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .dark-mode .num { background: rgba(212,168,67,0.15); color: var(--gold); }
+
+    /* ===== TABLE ===== */
+    .table-wrap { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--navy); }
+    thead th { color: white; padding: 12px 16px; font-size: 14px; text-align: left; }
+    .dark-mode thead tr { background: #1f2937; }
+    .dark-mode thead th { color: var(--gold); }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(26,35,126,0.04); }
+    .dark-mode tbody tr:hover { background: rgba(255,255,255,0.04); }
+    td { padding: 12px 16px; font-size: 14px; color: var(--text); }
+    .mark {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 8px;
+      font-weight: 700; font-size: 14px;
+      background: #d1fae5; color: #065f46;
+    }
+    .avg-row {
+      margin-top: 12px; padding: 10px; border-radius: 10px;
+      background: rgba(26,35,126,0.05); text-align: center;
+      font-size: 14px; color: var(--text-muted);
+    }
+    .dark-mode .avg-row { background: rgba(255,255,255,0.04); }
+    .avg-row strong { color: var(--navy); }
+    .dark-mode .avg-row strong { color: var(--gold); }
+
+    /* ===== MEDIA ===== */
+    figure { margin: 0; }
+    figure img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
+    figure iframe { width: 100%; height: 200px; border-radius: 12px; border: none; }
+    figcaption { margin-top: 10px; font-size: 13px; color: var(--text-muted); text-align: center; }
+    .external-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 12px; font-weight: 500;
+      font-size: 14px; text-decoration: none;
+      background: rgba(26,35,126,0.08); color: var(--navy);
+      transition: background 0.2s;
+    }
+    .dark-mode .external-link { background: rgba(212,168,67,0.15); color: var(--gold); }
+    .external-link:hover { background: rgba(26,35,126,0.15); }
+    .link-center { text-align: center; margin-top: 20px; }
+
+    /* ===== INTERACTIVE ===== */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .grid-3 { grid-template-columns: 1fr; } }
+    .btn {
+      padding: 9px 18px; border-radius: 8px; border: none;
+      cursor: pointer; font-size: 14px; font-weight: 500;
+      transition: background 0.2s, transform 0.1s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--navy); color: white; }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--gold);
+      color: var(--gold);
+    }
+    .btn-outline:hover { background: rgba(212,168,67,0.1); }
+    .btn-reset { background: #e5e7eb; color: #374151; }
+    .btn-reset:hover { background: #d1d5db; }
+    .color-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .color-btns button {
+      padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--border);
+      cursor: pointer; font-size: 12px; background: var(--card-bg); color: var(--text);
+      transition: all 0.2s;
+    }
+    .color-btns button.active { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    .alert-box {
+      margin-top: 12px; padding: 10px 14px;
+      border-radius: 10px; background: #d1fae5; color: #065f46;
+      font-size: 14px; font-weight: 500; display: none;
+    }
+    .clock { font-size: 32px; font-weight: 700; font-family: monospace; color: var(--navy); margin-top: 6px; }
+    .dark-mode .clock { color: var(--gold); }
+    .hidden-content {
+      margin-top: 12px; padding: 14px; border-radius: 10px;
+      background: rgba(26,35,126,0.05); font-size: 14px; color: var(--text);
+      display: block;
+    }
+    .dark-mode .hidden-content { background: rgba(255,255,255,0.05); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(212,168,67,0.3);
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .dark-mode footer { background: #111827; border-top-color: #374151; }
+    footer .academy { color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 3px; }
+    footer p { color: #9ca3af; font-size: 13px; margin-top: 8px; }
+    footer small { color: #6b7280; font-size: 11px; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <p class="header-academy">👑 King David Academy 👑</p>
+    <h1>GIKUNDIRO JESSE<br><span>Portfolio</span></h1>
+    <p>Grade 11 · Web Development · IT Project Management · Programming</p>
+  </header>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <ul>
+      <li>
+        <a href__="#about">🏠 Home</a>
+        <a href__="contact.html">✉️ Contact</a>
+        <a href__="#interactive">⚡ Interactive</a>
+      </li>
+      <li>
+        <button id="darkToggle" onclick="toggleDark()">🌙</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about-grid">
+        <div class="card">
+          <h3>👤 About Me</h3>
+          <p>
+            Hello! My name is <strong>GIKUNDIRO JESSE</strong>, a proud Grade 11 learner at King David Academy.
+            I am passionate about technology and innovation. I enjoy solving real-world problems
+            and building creative solutions using code. This website showcases my skills in
+            Web Development, IT Project Management, and Programming.
+          </p>
+          <br>
+          <p><em>— Student, Information Technology Department</em></p>
+        </div>
+        <div class="card">
+          <h3>💻 Why Web Development?</h3>
+          <p>
+            Web development fascinates me because it combines <strong>creativity with logic</strong>.
+            I love how HTML provides structure, CSS brings beauty, and JavaScript adds interactivity.
+            Building websites allows me to express ideas visually while learning valuable skills
+            for the future. I aspire to become a full-stack developer.
+          </p>
+          <br>
+          <p><em>— Aspiring Web Developer</em></p>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- LISTS + TABLE -->
+    <section id="academics">
+      <h2>Academics &amp; Media</h2>
+      <div class="grid-2">
+
+        <!-- Lists -->
+        <div>
+          <div class="card" style="margin-bottom:24px">
+            <h3>🌐 Favorite Websites</h3>
+            <p style="margin-bottom:10px;font-size:12px;">Unordered list — &lt;ul&gt;</p>
+            <ul class="fancy">
+              <li><span class="bullet"></span><div><strong>GitHub</strong><br><span style="font-size:13px;">Code collaboration platform</span></div></li>
+              <li><span class="bullet"></span><div><strong>Stack Overflow</strong><br><span style="font-size:13px;">Developer Q&A community</span></div></li>
+              <li><span class="bullet"></span><div><strong>MDN Web Docs</strong><br><span style="font-size:13px;">Web technology reference</span></div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3># Programming Languages</h3>
+            <p style="margin-bottom:10px;font-size:12px;">Ordered list — &lt;ol&gt;</p>
+            <ol class="fancy">
+              <li><span class="num">1</span><strong>JavaScript</strong></li>
+              <li><span class="num">2</span><strong>Python</strong></li>
+              <li><span class="num">3</span><strong>HTML / CSS</strong></li>
+              <li><span class="num">4</span><strong>Java</strong></li>
+              <li><span class="num">5</span><strong>C++</strong></li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="card">
+          <h3>📊 Academic Results</h3>
+          <p style="margin-bottom:16px;font-size:13px;">Grade 11 Academic Results — 2025</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Teacher</th>
+                  <th style="text-align:right">Marks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Web Development</td>
+                  <td>UWABERA TELEPHORE</td>
+                  <td style="text-align:right"><span class="mark">91</span></td>
+                </tr>
+                <tr>
+                  <td>IT Project Management</td>
+                  <td>IZERE DIDIER</td>
+                  <td style="text-align:right"><span class="mark">90</span></td>
+                </tr>
+                <tr>
+                  <td>Programming</td>
+                  <td>ASHIMWE CEDRIC</td>
+                  <td style="text-align:right"><span class="mark">93</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="avg-row">Average: <strong>91%</strong></div>
+        </div>
+      </div>
+
+      <!-- Media -->
+      <div class="grid-2" style="margin-top:32px;">
+        <div class="card">
+          <figure>
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=400&fit=crop"
+                 alt="Web design and development with HTML, CSS and JavaScript on a monitor" />
+            <figcaption>Figure 1: Web design workspace — &lt;img&gt; with alt text</figcaption>
+          </figure>
+        </div>
+        <div class="card">
+          <figure>
+            <iframe src="https://www.youtube.com/embed/qz0aGYrrlhU"
+                    title="HTML, CSS & JavaScript Web Development Tutorial"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            <figcaption>Figure 2: Web Development Video — &lt;iframe&gt; embed</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="link-center">
+        <a href__="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer" class="external-link">
+          🔗 Visit MDN Web Docs <span style="font-size:12px;">— &lt;a&gt; hyperlink</span>
+        </a>
+      </div>
+    </section>
+    <hr>
+
+    <!-- INTERACTIVE -->
+    <section id="interactive">
+      <h2>Interactive Features</h2>
+      <p style="margin-top:-20px;margin-bottom:32px;font-size:14px;color:var(--text-muted);">Powered by JavaScript — click, toggle, explore</p>
+
+      <div class="grid-3">
+
+        <!-- 1. Alert -->
+        <div class="card">
+          <h3>🖱️ Button Alert</h3>
+          <p>Click to trigger a notification</p>
+          <br>
+          <button class="btn btn-primary" onclick="showAlert()">Show Alert</button>
+          <div class="alert-box" id="alertBox">✅ Alert: Button clicked successfully!</div>
+        </div>
+
+        <!-- 2. Change Text -->
+        <div class="card">
+          <h3>✏️ Change Text</h3>
+          <p id="dynamicText">Click the button to change this text!</p>
+          <br>
+          <button class="btn btn-outline" onclick="changeText()">Change Text</button>
+        </div>
+
+        <!-- 3. Background Color -->
+        <div class="card">
+          <h3>🎨 Background Color</h3>
+          <p>Changes the whole page background</p>
+          <br>
+          <div class="color-btns">
+            <button onclick="changeBg('rose')" id="btn-rose">Rose</button>
+            <button onclick="changeBg('sky')" id="btn-sky">Sky</button>
+            <button onclick="changeBg('amber')" id="btn-amber">Amber</button>
+            <button onclick="changeBg('emerald')" id="btn-emerald">Emerald</button>
+            <button class="btn btn-reset" onclick="resetBg()">Reset</button>
+          </div>
+        </div>
+
+        <!-- 4. Date & Time -->
+        <div class="card">
+          <h3>🕐 Live Date &amp; Time</h3>
+          <p id="dateDisplay"></p>
+          <div class="clock" id="clockDisplay"></div>
+        </div>
+
+        <!-- 5. Dark Mode -->
+        <div class="card">
+          <h3>🌙 Light / Dark Mode</h3>
+          <p id="modeText">Currently in light mode</p>
+          <br>
+          <button class="btn btn-primary" id="modeBtn" onclick="toggleDark()">🌙 Switch to Dark</button>
+        </div>
+
+        <!-- 6. Show / Hide -->
+        <div class="card">
+          <h3>👁️ Show / Hide</h3>
+          <p>Toggle hidden content visibility</p>
+          <br>
+          <button class="btn btn-outline" onclick="toggleContent()" id="toggleBtn">🙈 Hide Content</button>
+          <div class="hidden-content" id="hiddenContent">
+            ✨ Welcome to GIKUNDIRO JESSE's portfolio website! Built with HTML, CSS &amp; JavaScript.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p class="academy">👑 KING DAVID ACADEMY 👑</p>
+    <p>GIKUNDIRO JESSE · Grade 11 · King David Academy · 2025</p>
+    <br>
+    <small>© 2025 GIKUNDIRO JESSE — King David Academy</small>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // --- Dark Mode ---
+    let isDark = false;
+    function toggleDark() {
+      isDark = !isDark;
+      document.body.classList.toggle('dark-mode', isDark);
+      document.getElementById('darkToggle').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('modeText').textContent = `Currently in ${isDark ? 'dark' : 'light'} mode`;
+      document.getElementById('modeBtn').textContent = isDark ? '☀️ Switch to Light' : '🌙 Switch to Dark';
+    }
+
+    // --- Alert ---
+    function showAlert() {
+      const box = document.getElementById('alertBox');
+      box.style.display = 'block';
+      setTimeout(() => { box.style.display = 'none'; }, 2000);
+    }
+
+    // --- Change Text ---
+    const texts = [
+      "JavaScript is awesome! 🚀",
+      "DOM manipulation is powerful! 💪",
+      "Events make pages interactive! ⚡",
+      "Keep learning and building! 🎯",
+      "Click the button to change this text!"
+    ];
+    let textIndex = 0;
+    function changeText() {
+      textIndex = (textIndex + 1) % texts.length;
+      document.getElementById('dynamicText').textContent = texts[textIndex];
+    }
+
+    // --- Background Color ---
+    const bgColors = {
+      rose: '#fff1f2', sky: '#f0f9ff',
+      amber: '#fffbeb', emerald: '#ecfdf5'
+    };
+    let activeBg = null;
+    function changeBg(color) {
+      document.querySelectorAll('.color-btns button').forEach(b => b.classList.remove('active'));
+      if (activeBg === color) {
+        resetBg(); return;
+      }
+      activeBg = color;
+      document.body.style.backgroundColor = bgColors[color];
+      document.getElementById('btn-' + color).classList.add('active');
+    }
+    function resetBg() {
+      activeBg = null;
+      document.body.style.backgroundColor = '';
+      document.querySelectorAll('.color-btns button').forEach(b => b.classList.remove('active'));
+    }
+
+    // --- Live Clock ---
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('dateDisplay').textContent =
+        now.toLocaleDateString('en-ZA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('clockDisplay').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // --- Show / Hide ---
+    let contentVisible = true;
+    function toggleContent() {
+      contentVisible = !contentVisible;
+      document.getElementById('hiddenContent').style.display = contentVisible ? 'block' : 'none';
+      document.getElementById('toggleBtn').textContent = contentVisible ? '🙈 Hide Content' : '👁️ Show Content';
+    }
+  </script>
+
+</body>
+</html>
